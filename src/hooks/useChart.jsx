@@ -1,17 +1,25 @@
 import * as echarts from "echarts";
 import { useEffect, useRef } from "react";
 
-const useChart = (data, comparisonData, isFullScreen, yAxis_1, yAxis_2) => {
+const useChart = (
+  data,
+  comparisonData,
+  isFullScreen,
+  yAxis_1,
+  yAxis_2,
+  isBarShow,
+  searchedKeys
+) => {
   const chartRef = useRef(null);
 
   const xAxisData = Array.isArray(data)
-    ? data.map((item) => new Date(item.time).toLocaleString())
+    ? data.map((item) => new Date(item[searchedKeys[0]]).toLocaleString())
     : [];
 
   const yAxisData = Array.isArray(data)
     ? data.map((item) => {
-        if (item.close) {
-          return Number(item.close.toFixed(5));
+        if (item[searchedKeys[1]]) {
+          return Number(item[searchedKeys[1]].toFixed(5));
         }
         return 0;
       })
@@ -19,8 +27,8 @@ const useChart = (data, comparisonData, isFullScreen, yAxis_1, yAxis_2) => {
 
   const volumeData = Array.isArray(data)
     ? data.map((item) => {
-        if (item.volume) {
-          return Number(item.volume.toFixed(5));
+        if (item[searchedKeys[2]]) {
+          return Number(item[searchedKeys[2]].toFixed(5));
         }
         return 0;
       })
@@ -28,8 +36,8 @@ const useChart = (data, comparisonData, isFullScreen, yAxis_1, yAxis_2) => {
 
   const yAxisData2 = Array.isArray(comparisonData)
     ? comparisonData.map((item) => {
-        if (item.close) {
-          return Number(item.close.toFixed(5));
+        if (item[searchedKeys[3]]) {
+          return Number(item[searchedKeys[3]].toFixed(5));
         }
         return 0;
       })
@@ -85,16 +93,7 @@ const useChart = (data, comparisonData, isFullScreen, yAxis_1, yAxis_2) => {
           symbol: "none",
           yAxisIndex: 0,
         },
-        {
-          name: "Volume",
-          data: volumeData,
-          type: "bar",
-          barWidth: "50%",
-          yAxisIndex: 1,
-          itemStyle: {
-            color: "#7a7c7d",
-          },
-        },
+
         {
           name: yAxis_2,
           data: yAxisData2,
@@ -122,6 +121,19 @@ const useChart = (data, comparisonData, isFullScreen, yAxis_1, yAxis_2) => {
       ],
     };
 
+    if (isBarShow) {
+      options.series.push({
+        name: "Volume",
+        data: volumeData,
+        type: "bar",
+        barWidth: "50%",
+        yAxisIndex: 1,
+        itemStyle: {
+          color: "#7a7c7d",
+        },
+      });
+    }
+
     chartInstance.setOption(options);
     const handleResize = () => {
       chartInstance.resize();
@@ -132,7 +144,7 @@ const useChart = (data, comparisonData, isFullScreen, yAxis_1, yAxis_2) => {
       window.removeEventListener("resize", handleResize);
       chartInstance.dispose(); // Dispose chart on unmount
     };
-  }, [isFullScreen, data, comparisonData]);
+  }, [isFullScreen, data, isBarShow, comparisonData]);
 
   return { chartRef };
 };

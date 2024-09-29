@@ -1,6 +1,6 @@
-# Getting Started with Create React App
+# Price Tracker
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This is a **Price Tracker** application built using **React** and **Tailwind CSS**. The application visualizes price data over time using charts and allows users to interact with the data through various features like toggling between different views, fullscreen mode, and more. The application fetches data from the **Mobula API**.
 
 ## Available Scripts
 
@@ -21,26 +21,34 @@ See the section about [running tests](https://facebook.github.io/create-react-ap
 
 ### `npm run build`
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### Features
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- **Real-time Data**: The application fetches live data from the [Mobula API](https://api.mobula.io) to display price movements and volume over time.
+- **Interactive Charts**: The chart component allows users to view different time ranges and compare data points.
+- **Fullscreen and Comparison Modes**: Users can switch the chart to fullscreen mode and compare different data sets on the same chart.
+- **Custom Components**: Modular components like `Button`, `Tabs`, `ToggleButton`, and `ChartView` are used throughout the app for consistency and reusability.
+- **Tailwind CSS Styling**: All UI elements are styled using Tailwind CSS for a responsive and clean design.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Technologies Used
 
-### `npm run eject`
+- React: The primary library for building the UI.
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+- Tailwind CSS: For styling the components and maintaining responsive design.
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+- ECharts: A charting library for the price and volume data visualization.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+- TypeScript: Provides static typing for improved code quality and development experience.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+- Mobula API: Source of live price data for rendering the charts.
 
-## Learn More
+- View Prices: Navigate to the "Chart" tab to view the price trends over a selected time range.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+- Compare Data: Use the "Compare" button to overlay two data points on the same chart.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+- Fullscreen Mode: Click on the "Fullscreen" button to expand the chart for better visibility.
+
+- Setting tabs: Use the toggle for hide tabs.
+
+### Conclusion
+
+The Price Tracker application leverages the power of React, Tailwind CSS, and the Mobula API, tracking price data. By combining modular components with efficient state management and data visualization, the application delivers an intuitive user experience. With features like fullscreen mode, data comparison, and interactive charts, this tool offers a dynamic and scalable solution for price tracking in various use cases.

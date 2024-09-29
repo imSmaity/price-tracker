@@ -24,7 +24,11 @@ const Price = ({ price, priceChange }: IPrice) => {
         <div className="text-xl leading-5">{priceLabel}</div>
         <div className="text-secondary text-lg leading-4">USD</div>
       </div>
-      <div className="text-profit text-base">{`${symbol} ${fixedPriceLabel} (${increasedPercentage}%)`}</div>
+      <div
+        className={`${
+          Number(increasedPercentage) < 0 ? "text-red-400" : "text-profit"
+        }  text-base`}
+      >{`${symbol} ${fixedPriceLabel} (${increasedPercentage}%)`}</div>
     </div>
   );
 };

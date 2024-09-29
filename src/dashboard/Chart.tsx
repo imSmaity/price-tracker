@@ -9,22 +9,17 @@ import Select from "../components/Select";
 import { ChangeEvent, ChangeEventHandler, useEffect, useState } from "react";
 import Api from "../Api";
 import { getTimestampsFromNow } from "../utils/getTimestampsFromNow";
+import { TRange } from "../types/types";
+import Loading from "../components/Loading";
 
 interface IChartProps {
   defaultCoin: string;
 }
 
-type TRange = {
-  from: string | number;
-  to: string | number;
-  label: string;
-  dataLimit?: number;
-};
-
 const timeFrames = [
   { label: "1h", dataLimit: 50 },
   { label: "1d", dataLimit: 400 },
-  { label: "1w", dataLimit: 3000 },
+  { label: "1w", dataLimit: 2500 },
   { label: "2w", dataLimit: 6500 },
   { label: "3w", dataLimit: 10000 },
   { label: "1m", dataLimit: 14500 },
@@ -49,8 +44,10 @@ const initialRange: TRange = {
   label: "1w",
   from: pastTimestamp,
   to: currentTimestamp,
-  dataLimit: 3000,
+  dataLimit: 2500,
 };
+
+const searchedKeys = ["time", "close", "volume", "close"];
 
 const Chart = ({ defaultCoin }: IChartProps) => {
   const [isFullScreen, setIsFullScreen] = useState<boolean>(false);
@@ -65,7 +62,9 @@ const Chart = ({ defaultCoin }: IChartProps) => {
     otherHistoryData,
     isFullScreen,
     defaultCoin,
-    comparisonCoin
+    comparisonCoin,
+    true,
+    searchedKeys
   );
 
   const fetchCoinHistoryData = (
@@ -171,10 +170,14 @@ const Chart = ({ defaultCoin }: IChartProps) => {
           ))}
         </div>
       </div>
-      <div
-        ref={chartRef}
-        className={isFullScreen ? "h-[650px] w-full" : "h-[500px] w-full"}
-      ></div>
+      {loading ? (
+        <Loading />
+      ) : (
+        <div
+          ref={chartRef}
+          className={isFullScreen ? "h-[650px] w-full" : "h-[500px] w-full"}
+        ></div>
+      )}
     </div>
   );
 };

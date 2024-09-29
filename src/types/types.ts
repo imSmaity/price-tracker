@@ -44,3 +44,10 @@ export interface NativeToken {
   logo: string;
   id: number;
 }
+
+export type TRange = {
+  from: string | number;
+  to: string | number;
+  label: string;
+  dataLimit?: number;
+};

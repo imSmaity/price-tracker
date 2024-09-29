@@ -3,13 +3,20 @@ import { constant } from "../config/constant";
 interface ITabsProps {
   activeTab: string;
   setActiveTab: Function;
+  activeTabs: string[];
 }
 
-const Tabs = ({ activeTab, setActiveTab }: ITabsProps) => {
+const Tabs = ({ activeTab, setActiveTab, activeTabs }: ITabsProps) => {
   const getClassName = (tabId: string) =>
     `${
       tabId === activeTab ? "border-b-[3px]" : "text-tab"
-    } border-primary p-3 pb-6 cursor-pointer`;
+    } border-primary p-3 pb-6 cursor-pointer ${
+      tabId === constant.tabs.settings.id
+        ? ""
+        : activeTabs.includes(tabId)
+        ? ""
+        : "hidden"
+    }`;
 
   return (
     <div className="">
